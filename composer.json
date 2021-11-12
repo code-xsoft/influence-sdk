@@ -1,5 +1,5 @@
 {
-    "name": "xsoft/influence-sdk",
+    "name": "code-xsoft/influence-sdk",
     "type": "library",
     "description": "This client allows you to implement referral programs using the Influence RESTful API.",
     "keywords": ["bonus","gamification","influence","coin","referral", "referrals", "refer", "friend", "friends", "referral marketing programs", "word of mouse", "promotion programs", "referral programs", "refer a friend", "promotion campaigns", "referral campaigns", "marketing campaigns", "afiliation", "affiliate", "refer friend", "affiliates"],
