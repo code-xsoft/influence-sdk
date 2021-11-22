@@ -8,14 +8,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class WidgetsController extends BaseController
 {
     private static $instance;
-    /**
-     * @var string[]
-     */
-    public $headers;
-    /**
-     * @var string
-     */
-    private $accountSlug;
+
     /**
      * @var WidgetRoute
      */
@@ -27,13 +20,7 @@ class WidgetsController extends BaseController
      */
     public function __construct(string $authToken, string $accountSlug)
     {
-        $this->headers = [
-            'app-key' => $authToken,
-            'Accept' => 'application/json'
-        ];
-
-        $this->accountSlug = $accountSlug;
-
+        parent::__construct($authToken, $accountSlug);
         $this->widgetRoute = new WidgetRoute();
     }
 
@@ -103,7 +90,7 @@ class WidgetsController extends BaseController
      */
     public function updateWidget($widget_packageID, $widget_id, $data): array
     {
-        $requestUrl = $this->widgetRoute->widgetUpdateUrl($this->accountSlug,$widget_packageID, $widget_id);
+        $requestUrl = $this->widgetRoute->widgetUpdateUrl($this->accountSlug, $widget_packageID, $widget_id);
 
         return $this->request('PATCH', $requestUrl, $data);
     }

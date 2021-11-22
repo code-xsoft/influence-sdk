@@ -4,24 +4,17 @@ namespace ForOverReferralsLib\Controllers;
 
 use ForOverReferralsLib\Routes\AdvocateRoute;
 use GuzzleHttp\Exception\GuzzleException;
+use ForOverReferralsLib\Models\AdvocateForm;
 
 class AdvocatesController extends BaseController
 {
     private static $instance;
 
-    /**
-     * @var string
-     */
-    private $accountSlug;
 
     /**
      * @var AdvocateRoute
      */
     private $advocateRoute;
-    /**
-     * @var string[]
-     */
-    public $headers;
 
     /**
      * @param string $authToken
@@ -29,12 +22,7 @@ class AdvocatesController extends BaseController
      */
     public function __construct(string $authToken, string $accountSlug)
     {
-        $this->headers = [
-            'app-key' => $authToken,
-            'Accept' => 'application/json'
-        ];
-
-        $this->accountSlug = $accountSlug;
+        parent::__construct($authToken, $accountSlug);
 
         $this->advocateRoute = new AdvocateRoute();
     }
@@ -55,15 +43,10 @@ class AdvocatesController extends BaseController
         return static::$instance;
     }
 
-    /**
-     * @param null $per_page
-     * @param null $current_page
-     * @return array
-     * @throws GuzzleException
-     */
-    public function listAdvocates($per_page = null, $current_page = null): array
+
+    public function listAdvocates($accountSlug, $per_page = null, $current_page = null)
     {
-        $requestUrl = $this->advocateRoute->advocateListUrl($this->accountSlug, [
+        $requestUrl = $this->advocateRoute->advocateListUrl($accountSlug, [
             'per_page' => $per_page,
             'current_page' => $current_page
         ]);
@@ -71,48 +54,44 @@ class AdvocatesController extends BaseController
         return $this->request('GET', $requestUrl);
     }
 
-    public function findAdvocate(string $advocateToken): array
+    public function getAdvocate($accountSlug, string $advocateToken)
     {
-        $requestUrl = $this->advocateRoute->advocateFindUrl($this->accountSlug, $advocateToken);
+        $requestUrl = $this->advocateRoute->advocateFindUrl($accountSlug, $advocateToken);
 
         return $this->request('GET', $requestUrl);
     }
 
-    /**
-     * @param $advocateToken
-     * @return array
-     * @throws GuzzleException
-     */
-    public function deleteAdvocate($advocateToken): array
+
+    public function deleteAdvocate($advocateToken)
     {
         $requestUrl = $this->advocateRoute->advocateDeleteUrl($this->accountSlug, $advocateToken);
 
         return $this->request('DELETE', $requestUrl);
     }
 
-    /**
-     * @param $data
-     * @param $advocateToken
-     * @return array
-     * @throws GuzzleException
-     */
-    public function updateAdvocate($data, $advocateToken): array
+
+    public function updateAdvocate($accountSlug, $advocateToken, $data)
     {
-        $requestUrl = $this->advocateRoute->advocateUpdateUrl($this->accountSlug, $advocateToken);
+        $requestUrl = $this->advocateRoute->advocateUpdateUrl($accountSlug, $advocateToken);
 
         return $this->request('PATCH', $requestUrl, $data);
     }
 
-    /**
-     * @param $data
-     * @return array
-     * @throws GuzzleException
-     */
 
-    public function createAdvocate($data): array
+    public function postAdvocate($accountSlug, AdvocateForm $advocateForm)
     {
-        $requestUrl = $this->advocateRoute->advocateCreateUrl($this->accountSlug);
+        $requestUrl = $this->advocateRoute->advocatePostUrl($accountSlug);
 
-        return $this->request('POST', $requestUrl, $data);
+        return $this->request('POST', $requestUrl, $advocateForm->toArray());
     }
+
+
+    public function getShareLinks($accountSlug, $advocate_token)
+    {
+        $requestUrl = $this->advocateRoute->advocateGetShareLinksUrl($accountSlug, $advocate_token);
+
+        return $this->request('GET', $requestUrl, $advocate_token);
+    }
+
+
 }

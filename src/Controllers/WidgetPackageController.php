@@ -12,24 +12,11 @@ class WidgetPackageController extends BaseController
      * @var WidgetPackageRoute
      */
     private $widgetPackageRoute;
-    /**
-     * @var string
-     */
-    private $accountSlug;
-    /**
-     * @var string[]
-     */
-    public $headers;
+
 
     public function __construct(string $authToken, string $accountSlug)
     {
-        $this->headers = [
-            'app-key' => $authToken,
-            'Accept' => 'application/json'
-        ];
-
-        $this->accountSlug = $accountSlug;
-
+        parent::__construct($authToken, $accountSlug);
         $this->widgetPackageRoute = new WidgetPackageRoute();
     }
 

@@ -4,6 +4,7 @@
 namespace ForOverReferralsLib\Controllers;
 
 use Exception;
+use ForOverReferralsLib\Routes\RedemptionRoute;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -13,30 +14,56 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class BaseController
 {
+
     /**
-     * @throws Exception|GuzzleException
+     * @var string[]
      */
+    protected $headers;
+
+    protected $accountSlug;
+
+    public function __construct(string $authToken, string $accountSlug)
+    {
+        $this->headers = [
+            'app-key' => $authToken,
+            'Accept' => 'application/json'
+        ];
+
+        $this->accountSlug = $accountSlug;
+    }
+
     protected function request($method, $url, $data = [])
     {
+
         $client = new Client([
             'headers' => $this->headers
         ]);
 
-        try {
+        $r = new \stdClass();
 
-            $response = $client->request($method, $url,['form_params' => $data]);
-        } catch (ClientException $e){
+        try {
+            $response = $client->request($method, $url, ['form_params' => $data]);
+
+//            $r->code = $response->getStatusCode();
+//            $r->data = json_decode($response->getBody()->getContents());
+
+        } catch (ClientException $e) {
             $response = $e->getResponse();
+
+//            $r->code = $e->getCode();
+//            $r->data = json_decode($response->getBody()->getContents());
+//                $r->message = json_decode($response->getBody()->getContents())->message;
+
         }
+
 
         $this->validateResponse($response);
 
-        return (array) json_decode($response->getBody()->getContents());
+//        return $r;
+//
+        return (object)json_decode($response->getBody()->getContents());
     }
 
-    /**
-     * @throws Exception
-     */
     protected function validateResponse($response)
     {
         if ($response->getStatusCode() == 401) {

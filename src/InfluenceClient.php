@@ -49,7 +49,7 @@ class InfluenceClient
     /**
      * @return RedemptionController The *Singleton* instance
      */
-    public function getRedemption(): RedemptionController
+    public function getRedemptions(): RedemptionController
     {
         return RedemptionController::getInstance($this->authToken, $this->accountSlug);
     }

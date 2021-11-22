@@ -8,17 +8,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class BonusController extends BaseController
 {
     private static $instance;
-    /**
-     * @var string[]
-     */
-    public $headers;
-    /**
-     * @var string
-     */
-    private $accountSlug;
-    /**
-     * @var BonusRoute
-     */
+
     private $bonusRoute;
 
     /**
@@ -27,13 +17,7 @@ class BonusController extends BaseController
      */
     public function __construct(string $authToken, string $accountSlug)
     {
-        $this->headers = [
-            'app-key' => $authToken,
-            'Accept' => 'application/json'
-        ];
-
-        $this->accountSlug = $accountSlug;
-
+        parent::__construct($authToken, $accountSlug);
         $this->bonusRoute = new BonusRoute();
     }
 

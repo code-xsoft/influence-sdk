@@ -7,28 +7,12 @@ use ForOverReferralsLib\Routes\ReferralRoute;
 
 class ReferralsController extends BaseController
 {
-    /**
-     * @var string[]
-     */
-    public $headers;
-    /**
-     * @var string
-     */
-    private $accountSlug;
-    /**
-     * @var ReferralRoute
-     */
+
     private $referralRoute;
 
     public function __construct(string $authToken, string $accountSlug)
     {
-        $this->headers = [
-            'app-key' => $authToken,
-            'Accept' => 'application/json'
-        ];
-
-        $this->accountSlug = $accountSlug;
-
+        parent::__construct($authToken, $accountSlug);
         $this->referralRoute = new ReferralRoute();
     }
 
