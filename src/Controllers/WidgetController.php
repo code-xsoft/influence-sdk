@@ -2,10 +2,11 @@
 
 namespace ForOverReferralsLib\Controllers;
 
+use ForOverReferralsLib\Models\WidgetForm;
 use ForOverReferralsLib\Routes\WidgetRoute;
 use GuzzleHttp\Exception\GuzzleException;
 
-class WidgetsController extends BaseController
+class WidgetController extends BaseController
 {
     private static $instance;
 
@@ -38,40 +39,21 @@ class WidgetsController extends BaseController
         return static::$instance;
     }
 
-    /**
-     * @param $widget_packageID
-     * @param $data
-     * @return array
-     * @throws GuzzleException
-     */
-    public function createWidget($widget_packageID, $data): array
+    public function postWidget($accountSlug, $widget_package_id, WidgetForm $widgetForm)
     {
-        $requestUrl = $this->widgetRoute->widgetCreateUrl($this->accountSlug, $widget_packageID);
+        $requestUrl = $this->widgetRoute->widgetCreateUrl($accountSlug, $widget_package_id);
 
-        return $this->request('POST', $requestUrl, $data);
+        return $this->request('POST', $requestUrl, $widgetForm->toArray());
     }
 
-    /**
-     * @param $widget_packageID
-     * @param $widget_id
-     * @return array
-     * @throws GuzzleException
-     */
-    public function deleteWidget($widget_packageID, $widget_id): array
+    public function deleteWidget($widget_packageID, $widget_id)
     {
         $requestUrl = $this->widgetRoute->widgetDeleteUrl($this->accountSlug, $widget_packageID, $widget_id);
 
         return $this->request('DELETE', $requestUrl);
     }
 
-    /**
-     * @param $widget_packageID
-     * @param null $per_page
-     * @param null $current_page
-     * @return array
-     * @throws GuzzleException
-     */
-    public function listWidget($widget_packageID, $per_page = null, $current_page = null): array
+    public function listWidget($widget_packageID, $per_page = null, $current_page = null)
     {
         $requestUrl = $this->widgetRoute->widgetListUrl($this->accountSlug, $widget_packageID, [
             'per_page' => $per_page,
@@ -81,14 +63,7 @@ class WidgetsController extends BaseController
         return $this->request('GET', $requestUrl);
     }
 
-    /**
-     * @param $widget_packageID
-     * @param $widget_id
-     * @param $data
-     * @return array
-     * @throws GuzzleException
-     */
-    public function updateWidget($widget_packageID, $widget_id, $data): array
+    public function updateWidget($widget_packageID, $widget_id, $data)
     {
         $requestUrl = $this->widgetRoute->widgetUpdateUrl($this->accountSlug, $widget_packageID, $widget_id);
 

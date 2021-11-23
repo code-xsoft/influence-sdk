@@ -34,7 +34,6 @@ class BaseController
 
     protected function request($method, $url, $data = [])
     {
-
         $client = new Client([
             'headers' => $this->headers
         ]);

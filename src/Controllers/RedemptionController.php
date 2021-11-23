@@ -2,6 +2,7 @@
 
 namespace ForOverReferralsLib\Controllers;
 
+use ForOverReferralsLib\Models\RedemptionForm;
 use ForOverReferralsLib\Routes\RedemptionRoute;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -29,20 +30,23 @@ class RedemptionController extends BaseController
         return static::$instance;
     }
 
-    public function createRedemption(array $data)
+    public function postRedemption($accountSlug, RedemptionForm $redemptionForm)
     {
-        $requestUrl = $this->redemptionRoute->redemptionCreateUrl($this->accountSlug);
+        $requestUrl = $this->redemptionRoute->redemptionCreateUrl($accountSlug);
 
-        return $this->request('POST', $requestUrl, $data);
+        return $this->request('POST', $requestUrl, $redemptionForm->toArray());
     }
 
 
-    public function getRedemptions($advocate_id, $per_page = null, $current_page = null)
+    public function getRedemptions($accountSlug, $page = 1, $per_page = 100, $filter = [])
     {
-        $requestUrl = $this->redemptionRoute->redemptionListUrl($this->accountSlug, $advocate_id, [
+        $params = array_merge([
             'per_page' => $per_page,
-            'current_page' => $current_page
-        ]);
+            'page' => $page
+        ],
+            $filter);
+
+        $requestUrl = $this->redemptionRoute->redemptionListUrl($accountSlug, $params);
 
         return $this->request('GET', $requestUrl);
     }

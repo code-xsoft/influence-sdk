@@ -11,7 +11,7 @@ class WidgetRoute extends BonusRoute
      */
     public function widgetCreateUrl(string $account_slug, int $widget_packageID): string
     {
-        return $this->getUrl($account_slug, '/widget_packages/'. $widget_packageID . '/widgets');
+        return $this->getUrl($account_slug, '/widget-packages/'. $widget_packageID . '/widgets');
     }
 
     /**
@@ -22,7 +22,7 @@ class WidgetRoute extends BonusRoute
      */
     public function widgetListUrl(string $account_slug, int $widget_packageID, array $params): string
     {
-        $url = $this->getUrl($account_slug, '/widget_packages/'. $widget_packageID . '/widgets');
+        $url = $this->getUrl($account_slug, '/widget-packages/'. $widget_packageID . '/widgets');
 
         return $this->addParams($url, $params);
     }
@@ -36,7 +36,7 @@ class WidgetRoute extends BonusRoute
 
     public function widgetUpdateUrl(string $account_slug, int $widget_packageID, $widget_id): string
     {
-        return $this->getUrl($account_slug, '/widget_packages/'. $widget_packageID . '/widgets/'. $widget_id);
+        return $this->getUrl($account_slug, '/widget-packages/'. $widget_packageID . '/widgets/'. $widget_id);
     }
 
     /**
@@ -47,6 +47,6 @@ class WidgetRoute extends BonusRoute
      */
     public function widgetDeleteUrl(string $account_slug, int $widget_packageID, $widget_id): string
     {
-        return $this->getUrl($account_slug, '/widget_packages/'. $widget_packageID . '/widgets/' . $widget_id);
+        return $this->getUrl($account_slug, '/widget-packages/'. $widget_packageID . '/widgets/' . $widget_id);
     }
 }

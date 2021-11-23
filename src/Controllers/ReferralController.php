@@ -2,10 +2,11 @@
 
 namespace ForOverReferralsLib\Controllers;
 
+use ForOverReferralsLib\Models\ReferralForm;
 use GuzzleHttp\Exception\GuzzleException;
 use ForOverReferralsLib\Routes\ReferralRoute;
 
-class ReferralsController extends BaseController
+class ReferralController extends BaseController
 {
 
     private $referralRoute;
@@ -27,14 +28,7 @@ class ReferralsController extends BaseController
         return static::$instance;
     }
 
-    /**
-     * @param int $advocate_id
-     * @param null $per_page
-     * @param null $current_page
-     * @return array
-     * @throws GuzzleException
-     */
-    public function listReferrals(int $advocate_id, $per_page = null, $current_page = null): array
+    public function listReferrals(int $advocate_id, $per_page = null, $current_page = null)
     {
         $requestUrl = $this->referralRoute->referralListUrl($this->accountSlug, $advocate_id, [
             'per_page' => $per_page,
@@ -44,40 +38,34 @@ class ReferralsController extends BaseController
         return $this->request('GET', $requestUrl);
     }
 
-    /**
-     * @param $advocateId
-     * @return array
-     * @throws GuzzleException
-     */
-    public function deleteReferral($advocateId): array
+    public function deleteReferral($advocateId)
     {
         $requestUrl = $this->referralRoute->referralDeleteUrl($this->accountSlug, $advocateId);
 
         return $this->request('DELETE', $requestUrl);
     }
 
-    /**
-     * @param $data
-     * @param $referral_id
-     * @return array
-     * @throws GuzzleException
-     */
-    public function updateReferral($data, $referral_id): array
+
+    public function updateReferral($data, $referral_id)
     {
         $requestUrl = $this->referralRoute->referralUpdateUrl($this->accountSlug, $referral_id);
 
         return $this->request('PATCH', $requestUrl, $data);
     }
 
-    /**
-     * @param $data
-     * @return array
-     * @throws GuzzleException
-     */
-
-    public function createReferral($data): array
+    public function postReferral($accountSlug, $referrer_advocate_token, ReferralForm $referralForm)
     {
-        $requestUrl = $this->referralRoute->referralCreateUrl($this->accountSlug);
+
+        $requestUrl = $this->referralRoute->referralCreateUrl($accountSlug);
+
+        $data = array_merge([
+            'referrer_advocate_token' => $referrer_advocate_token
+        ],
+            $referralForm->toArray());
+
+//        echo "<pre>";
+//        print_r($data);
+//        die;
 
         return $this->request('POST', $requestUrl, $data);
     }

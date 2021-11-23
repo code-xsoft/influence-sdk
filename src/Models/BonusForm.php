@@ -8,28 +8,29 @@
 namespace ForOverReferralsLib\Models;
 
 /**
- * The referral's form
+ * The force bonuses' form
  */
-class ReferralForm
+class BonusForm
 {
     /**
-     * The referral's wrapper
+     * The bonuses' wrapper
      * @required
-     * @var Referral $referral public property
+     * @var Bonus $bonus public property
      */
-    public $referral;
+    public $bonus;
 
     /**
      * Constructor to set initial or default values of member properties
-     * @param Referral $referral Initialization value for $this->referral
+     * @param Bonus $bonus Initialization value for $this->bonus
      */
-    public function __construct(Referral $referral)
+    public function __construct(Bonus $bonus)
     {
-        $this->referral = $referral;
+        $this->bonus = $bonus;
     }
+
 
     public function toArray(): array
     {
-        return $this->referral->toArray();
+        return $this->bonus->toArray();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace ForOverReferralsLib\Controllers;
 
+use ForOverReferralsLib\Models\WidgetPackageForm;
 use ForOverReferralsLib\Routes\WidgetPackageRoute;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -29,38 +30,24 @@ class WidgetPackageController extends BaseController
         return static::$instance;
     }
 
-    /**
-     * @param array $data
-     * @param int $advocate_id
-     * @return array
-     * @throws GuzzleException
-     */
-    public function createWidgetPackage(array $data, int $advocate_id): array
-    {
-        $requestUrl = $this->widgetPackageRoute->widgetPackageCreateUrl($this->accountSlug, $advocate_id);
 
-        return $this->request('POST', $requestUrl, $data);
+    public function postWidgetPackage($accountSlug, WidgetPackageForm $widgetPackageForm)
+    {
+        $requestUrl = $this->widgetPackageRoute->widgetPackageCreateUrl($accountSlug);
+
+        return $this->request('POST', $requestUrl, $widgetPackageForm->toArray());
     }
 
-    /**
-     * @param int $widget_packageID
-     * @return array
-     * @throws GuzzleException
-     */
-    public function deleteWidgetPackage(int $widget_packageID): array
+
+    public function deleteWidgetPackage(int $widget_packageID)
     {
         $requestUrl = $this->widgetPackageRoute->widgetPackageDeleteUrl($this->accountSlug, $widget_packageID);
 
         return $this->request('DELETE', $requestUrl);
     }
 
-    /**
-     * @param null $per_page
-     * @param null $current_page
-     * @return array
-     * @throws GuzzleException
-     */
-    public function listWidgetPackage($per_page = null, $current_page = null): array
+
+    public function listWidgetPackage($per_page = null, $current_page = null)
     {
         $requestUrl = $this->widgetPackageRoute->widgetPackageListUrl($this->accountSlug, [
             'per_page' => $per_page,
@@ -70,13 +57,7 @@ class WidgetPackageController extends BaseController
         return $this->request('GET', $requestUrl);
     }
 
-    /**
-     * @param int $widget_packageID
-     * @param array $data
-     * @return array
-     * @throws GuzzleException
-     */
-    public function updateWidgetPackage(int $widget_packageID, array $data): array
+    public function updateWidgetPackage(int $widget_packageID, array $data)
     {
         $requestUrl = $this->widgetPackageRoute->widgetPackageUpdateUrl($this->accountSlug, $widget_packageID);
 

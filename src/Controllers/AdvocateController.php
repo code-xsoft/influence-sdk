@@ -6,7 +6,7 @@ use ForOverReferralsLib\Routes\AdvocateRoute;
 use GuzzleHttp\Exception\GuzzleException;
 use ForOverReferralsLib\Models\AdvocateForm;
 
-class AdvocatesController extends BaseController
+class AdvocateController extends BaseController
 {
     private static $instance;
 

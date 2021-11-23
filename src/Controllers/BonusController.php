@@ -2,6 +2,7 @@
 
 namespace ForOverReferralsLib\Controllers;
 
+use ForOverReferralsLib\Models\BonusForm;
 use ForOverReferralsLib\Routes\BonusRoute;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -35,14 +36,9 @@ class BonusController extends BaseController
         return static::$instance;
     }
 
-    /**
-     * @param null $per_page
-     * @param null $current_page
-     * @return array
-     * @throws GuzzleException
-     */
 
-    public function listBonuses($per_page = null, $current_page = null): array
+
+    public function listBonuses($per_page = null, $current_page = null)
     {
         $requestUrl = $this->bonusRoute->bonusListUrl($this->accountSlug, [
             'per_page' => $per_page,
@@ -52,41 +48,27 @@ class BonusController extends BaseController
         return $this->request('GET', $requestUrl);
     }
 
-    /**
-     * @param int $bonusId
-     * @return array
-     * @throws GuzzleException
-     */
-    public function deleteBonus(int $bonusId): array
+    public function deleteBonus(int $bonusId)
     {
         $requestUrl = $this->bonusRoute->bonusDeleteUrl($this->accountSlug, $bonusId);
 
         return $this->request('DELETE', $requestUrl);
     }
 
-    /**
-     * @param array $data
-     * @param int $bonusId
-     * @return array
-     * @throws GuzzleException
-     */
-    public function updateBonus(array $data,int $bonusId): array
+
+    public function updateBonus(array $data,int $bonusId)
     {
         $requestUrl = $this->bonusRoute->bonusUpdateUrl($this->accountSlug, $bonusId);
 
         return $this->request('PATCH', $requestUrl, $data);
     }
 
-    /**
-     * @param array $data
-     * @return array
-     * @throws GuzzleException
-     */
-    public function createBonus(array $data): array
-    {
-        $requestUrl = $this->bonusRoute->bonusCreateUrl($this->accountSlug);
 
-        return $this->request('POST', $requestUrl, $data);
+    public function postBonus($accountSlug, BonusForm $bonusForm)
+    {
+        $requestUrl = $this->bonusRoute->bonusCreateUrl($accountSlug);
+
+        return $this->request('POST', $requestUrl, $bonusForm->toArray());
     }
 
     /**
@@ -94,7 +76,7 @@ class BonusController extends BaseController
      * @return array
      * @throws GuzzleException
      */
-    public function advocateBonuses(int $advocateId): array
+    public function advocateBonuses(int $advocateId)
     {
         $requestUrl = $this->bonusRoute->bonusAdvocateUrl($this->accountSlug, $advocateId);
 

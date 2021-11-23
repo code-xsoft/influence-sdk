@@ -6,14 +6,9 @@
  * @author X-Soft
  */
 
-namespace GeniusReferralsLib\Models;
+namespace ForOverReferralsLib\Models;
 
-use JsonSerializable;
-
-/**
- * A bonus structure
- */
-class SocialWidgets implements JsonSerializable
+class Widget
 {
     /**
      * Referral Origin Slug // facebok-share, personal
@@ -71,15 +66,14 @@ class SocialWidgets implements JsonSerializable
     /**
      * Encode this object to JSON
      */
-    public function jsonSerialize()
+    public function toArray(): array
     {
-        $json = array();
-        $json['referral_origin_slug'] = $this->referral_origin_slug;
-        $json['images'] = $this->images;
-        $json['title'] = $this->title;
-        $json['summary'] = $this->summary;
-        $json['site_name'] = $this->site_name;
-
-        return $json;
+        return [
+            'referral_origin_slug' => $this->referral_origin_slug,
+            'images' => $this->images,
+            'title' => $this->title,
+            'summary' => $this->summary,
+            'site_name' => $this->site_name,
+        ];
     }
 }

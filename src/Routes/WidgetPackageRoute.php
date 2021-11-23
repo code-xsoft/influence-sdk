@@ -11,7 +11,7 @@ class WidgetPackageRoute extends BonusRoute
      */
     public function widgetPackageFindUrl(string $account_slug, int $widget_packageID): string
     {
-        return $this->getUrl($account_slug, '/widget_packages/'. $widget_packageID);
+        return $this->getUrl($account_slug, '/widget-packages/'. $widget_packageID);
     }
 
     /**
@@ -21,7 +21,7 @@ class WidgetPackageRoute extends BonusRoute
      */
     public function widgetPackageDeleteUrl(string $account_slug, int $widget_packageID): string
     {
-        return $this->getUrl($account_slug, '/widget_packages/'. $widget_packageID);
+        return $this->getUrl($account_slug, '/widget-packages/'. $widget_packageID);
     }
 
     /**
@@ -31,7 +31,7 @@ class WidgetPackageRoute extends BonusRoute
      */
     public function widgetPackageUpdateUrl(string $account_slug, int $widget_packageID): string
     {
-        return $this->getUrl($account_slug, '/widget_packages/'. $widget_packageID );
+        return $this->getUrl($account_slug, '/widget-packages/'. $widget_packageID );
     }
 
     /**
@@ -39,9 +39,9 @@ class WidgetPackageRoute extends BonusRoute
      * @param int $advocate_id
      * @return string
      */
-    public function widgetPackageCreateUrl(string $account_slug, int $advocate_id): string
+    public function widgetPackageCreateUrl(string $account_slug): string
     {
-        return $this->getUrl($account_slug, '/widget_packages/'. $advocate_id );
+        return $this->getUrl($account_slug, '/widget-packages');
     }
 
     /**
@@ -51,7 +51,7 @@ class WidgetPackageRoute extends BonusRoute
      */
     public function widgetPackageListUrl(string $account_slug, array $params): string
     {
-        $url = $this->getUrl($account_slug, '/widget_packages');
+        $url = $this->getUrl($account_slug, '/widget-packages');
 
         return $this->addParams($url, $params);
     }

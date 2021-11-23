@@ -13,15 +13,10 @@ class RedemptionRoute extends BaseRoute
         return $this->getUrl($account_slug, '/redemptions');
     }
 
-    /**
-     * @param string $account_slug
-     * @param int $advocate_id
-     * @param array $params
-     * @return string
-     */
-    public function redemptionListUrl(string $account_slug, int $advocate_id, array $params): string
+    public function redemptionListUrl(string $account_slug, array $params = []): string
     {
-        $url = $this->getUrl($account_slug, '/redemptions/' . $advocate_id);
+        $url = $this->getUrl($account_slug, '/redemptions/');
+
 
         return $this->addParams($url, $params);
     }
