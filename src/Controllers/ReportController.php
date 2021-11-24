@@ -6,28 +6,11 @@ use ForOverReferralsLib\Routes\ReportRoute;
 
 class ReportController extends BaseController
 {
-    /**
-     * @var string[]
-     */
-    public $headers;
-    /**
-     * @var string
-     */
-    private $accountSlug;
-    /**
-     * @var ReportRoute
-     */
     private $reportRoute;
 
     public function __construct(string $authToken, string $accountSlug)
     {
-        $this->headers = [
-            'app-key' => $authToken,
-            'Accept' => 'application/json'
-        ];
-
-        $this->accountSlug = $accountSlug;
-
+        parent::__construct($authToken, $accountSlug);
         $this->reportRoute = new ReportRoute();
     }
 
@@ -44,7 +27,7 @@ class ReportController extends BaseController
 
     public function getClickDailyParticipation($accountSlug, $advocateToken, $from, $to)
     {
-        $requestUrl = $this->reportRoute->clickDailyParticipationUrl($accountSlug,$advocateToken, [
+        $requestUrl = $this->reportRoute->clickDailyParticipationUrl($accountSlug, $advocateToken, [
             'start' => $from,
             'end' => $to,
         ]);

@@ -48,6 +48,7 @@ class RedemptionController extends BaseController
 
         $requestUrl = $this->redemptionRoute->redemptionListUrl($accountSlug, $params);
 
+
         return $this->request('GET', $requestUrl);
     }
 }

@@ -22,6 +22,15 @@ class WidgetPackage
     public $name;
 
     /**
+     * Widget slug
+     * @required
+     * @maps name
+     * @var string $slug public property
+     */
+    public $slug;
+
+
+    /**
      * Widget description
      * @var string $description public property
      */
@@ -41,9 +50,10 @@ class WidgetPackage
      * @param string $landing_url Initialization value for $this->landing_url
      */
 
-    public function __construct(string $name, string $description, string $landing_url)
+    public function __construct(string $name, string $slug, string $description, string $landing_url)
     {
         $this->name = $name;
+        $this->slug = $slug;
         $this->description = $description;
         $this->landing_url = $landing_url;
     }
@@ -56,6 +66,7 @@ class WidgetPackage
     {
         return [
             'name' => $this->name,
+            'slug' => $this->slug,
             'description' => $this->description,
             'landing_url' => $this->landing_url,
         ];

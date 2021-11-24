@@ -4,55 +4,41 @@ namespace ForOverReferralsLib\Routes;
 
 class WidgetPackageRoute extends BonusRoute
 {
-    /**
-     * @param string $account_slug
-     * @param int $widget_packageID
-     * @return string
-     */
-    public function widgetPackageFindUrl(string $account_slug, int $widget_packageID): string
+
+    public function widgetPackageFindUrl(string $account_slug, int $widget_package_id): string
     {
-        return $this->getUrl($account_slug, '/widget-packages/'. $widget_packageID);
+        return $this->getUrl($account_slug, '/widget-packages/'. $widget_package_id);
     }
 
-    /**
-     * @param string $account_slug
-     * @param int $widget_packageID
-     * @return string
-     */
-    public function widgetPackageDeleteUrl(string $account_slug, int $widget_packageID): string
-    {
-        return $this->getUrl($account_slug, '/widget-packages/'. $widget_packageID);
-    }
-
-    /**
-     * @param string $account_slug
-     * @param int $widget_packageID
-     * @return string
-     */
-    public function widgetPackageUpdateUrl(string $account_slug, int $widget_packageID): string
-    {
-        return $this->getUrl($account_slug, '/widget-packages/'. $widget_packageID );
-    }
-
-    /**
-     * @param string $account_slug
-     * @param int $advocate_id
-     * @return string
-     */
-    public function widgetPackageCreateUrl(string $account_slug): string
-    {
-        return $this->getUrl($account_slug, '/widget-packages');
-    }
-
-    /**
-     * @param string $account_slug
-     * @param array $params
-     * @return string
-     */
-    public function widgetPackageListUrl(string $account_slug, array $params): string
+    public function widgetPackageListUrl(string $account_slug, array $params = []): string
     {
         $url = $this->getUrl($account_slug, '/widget-packages');
 
         return $this->addParams($url, $params);
+    }
+
+    public function widgetPackageGetUrl(string $account_slug, int $widget_package_id): string
+    {
+        return $this->getUrl($account_slug, '/widget-packages/'. $widget_package_id);
+    }
+
+    public function widgetPackageGetBySlugUrl(string $account_slug, string $widget_package_slug): string
+    {
+        return $this->getUrl($account_slug, '/widget-packages/slug/'. $widget_package_slug);
+    }
+
+    public function widgetPackageDeleteUrl(string $account_slug, int $widget_package_id): string
+    {
+        return $this->getUrl($account_slug, '/widget-packages/'. $widget_package_id);
+    }
+
+    public function widgetPackageUpdateUrl(string $account_slug, int $widget_package_id): string
+    {
+        return $this->getUrl($account_slug, '/widget-packages/'. $widget_package_id );
+    }
+
+    public function widgetPackageCreateUrl(string $account_slug): string
+    {
+        return $this->getUrl($account_slug, '/widget-packages');
     }
 }

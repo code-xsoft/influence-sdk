@@ -30,6 +30,31 @@ class WidgetPackageController extends BaseController
         return static::$instance;
     }
 
+    public function getWidgetPackage($accountSlug, $widget_package_id)
+    {
+        $requestUrl = $this->widgetPackageRoute->widgetPackageGetUrl($accountSlug, $widget_package_id);
+
+        return $this->request('GET', $requestUrl);
+    }
+
+    public function getWidgetPackageBySlug($accountSlug, $widget_package_slug)
+    {
+        $requestUrl = $this->widgetPackageRoute->widgetPackageGetBySlugUrl($accountSlug, $widget_package_slug);
+
+        return $this->request('GET', $requestUrl);
+    }
+
+
+    public function getWidgetPackages($accountSlug, $page = 1, $per_page = 100)
+    {
+        $requestUrl = $this->widgetPackageRoute->widgetPackageListUrl($accountSlug, [
+            'per_page' => $per_page,
+            'page' => $page
+        ]);
+
+        return $this->request('GET', $requestUrl);
+    }
+
 
     public function postWidgetPackage($accountSlug, WidgetPackageForm $widgetPackageForm)
     {
@@ -46,16 +71,6 @@ class WidgetPackageController extends BaseController
         return $this->request('DELETE', $requestUrl);
     }
 
-
-    public function listWidgetPackage($per_page = null, $current_page = null)
-    {
-        $requestUrl = $this->widgetPackageRoute->widgetPackageListUrl($this->accountSlug, [
-            'per_page' => $per_page,
-            'current_page' => $current_page
-        ]);
-
-        return $this->request('GET', $requestUrl);
-    }
 
     public function updateWidgetPackage(int $widget_packageID, array $data)
     {
