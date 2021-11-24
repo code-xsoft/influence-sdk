@@ -3,9 +3,9 @@
 namespace ForOverReferralsLib;
 
 use ForOverReferralsLib\Controllers\BonusController;
-use ForOverReferralsLib\Controllers\WidgetsController;
-use ForOverReferralsLib\Controllers\ReferralsController;
-use ForOverReferralsLib\Controllers\AdvocatesController;
+use ForOverReferralsLib\Controllers\WidgetController;
+use ForOverReferralsLib\Controllers\ReferralController;
+use ForOverReferralsLib\Controllers\AdvocateController;
 use ForOverReferralsLib\Controllers\RedemptionController;
 use ForOverReferralsLib\Controllers\WidgetPackageController;
 
@@ -23,19 +23,19 @@ class InfluenceClient
     }
 
     /**
-     * @return AdvocatesController The *Singleton* instance
+     * @return AdvocateController The *Singleton* instance
      */
-    public function getAdvocates(): AdvocatesController
+    public function getAdvocates(): AdvocateController
     {
-        return AdvocatesController::getInstance($this->authToken, $this->accountSlug);
+        return AdvocateController::getInstance($this->authToken, $this->accountSlug);
     }
 
     /**
-     * @return ReferralsController The *Singleton* instance
+     * @return ReferralController The *Singleton* instance
      */
-    public function getReferrals(): ReferralsController
+    public function getReferrals(): ReferralController
     {
-        return ReferralsController::getInstance($this->authToken, $this->accountSlug);
+        return ReferralController::getInstance($this->authToken, $this->accountSlug);
     }
 
     /**
@@ -49,18 +49,18 @@ class InfluenceClient
     /**
      * @return RedemptionController The *Singleton* instance
      */
-    public function getRedemption(): RedemptionController
+    public function getRedemptions(): RedemptionController
     {
         return RedemptionController::getInstance($this->authToken, $this->accountSlug);
     }
 
 
     /**
-     * @return WidgetsController The *Singleton* instance
+     * @return WidgetController The *Singleton* instance
      */
-    public function getWidgets(): WidgetsController
+    public function getWidgets(): WidgetController
     {
-        return WidgetsController::getInstance($this->authToken, $this->accountSlug);
+        return WidgetController::getInstance($this->authToken, $this->accountSlug);
     }
 
 
