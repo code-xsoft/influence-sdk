@@ -3,6 +3,7 @@
 namespace ForOverReferralsLib;
 
 use ForOverReferralsLib\Controllers\BonusController;
+use ForOverReferralsLib\Controllers\ReportController;
 use ForOverReferralsLib\Controllers\WidgetController;
 use ForOverReferralsLib\Controllers\ReferralController;
 use ForOverReferralsLib\Controllers\AdvocateController;
@@ -70,5 +71,13 @@ class InfluenceClient
     public function getWidgetPackages(): WidgetPackageController
     {
         return WidgetPackageController::getInstance($this->authToken, $this->accountSlug);
+    }
+
+    /**
+     * @return ReportController The *Singleton* instance
+     */
+    public function getReports(): ReportController
+    {
+        return ReportController::getInstance($this->authToken, $this->accountSlug);
     }
 }
