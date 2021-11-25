@@ -10,17 +10,13 @@ use ForOverReferralsLib\Controllers\AdvocateController;
 use ForOverReferralsLib\Controllers\RedemptionController;
 use ForOverReferralsLib\Controllers\WidgetPackageController;
 
-
 class InfluenceClient
 {
     private $authToken;
 
-    private $accountSlug;
-
-    public function __construct($accountSlug, $AuthToken)
+    public function __construct($AuthToken)
     {
         $this->authToken = $AuthToken;
-        $this->accountSlug = $accountSlug;
     }
 
     /**
@@ -28,7 +24,7 @@ class InfluenceClient
      */
     public function getAdvocates(): AdvocateController
     {
-        return AdvocateController::getInstance($this->authToken, $this->accountSlug);
+        return AdvocateController::getInstance($this->authToken);
     }
 
     /**
@@ -36,7 +32,7 @@ class InfluenceClient
      */
     public function getReferrals(): ReferralController
     {
-        return ReferralController::getInstance($this->authToken, $this->accountSlug);
+        return ReferralController::getInstance($this->authToken);
     }
 
     /**
@@ -44,7 +40,7 @@ class InfluenceClient
      */
     public function getBonuses(): BonusController
     {
-        return BonusController::getInstance($this->authToken, $this->accountSlug);
+        return BonusController::getInstance($this->authToken);
     }
 
     /**
@@ -52,7 +48,7 @@ class InfluenceClient
      */
     public function getRedemptions(): RedemptionController
     {
-        return RedemptionController::getInstance($this->authToken, $this->accountSlug);
+        return RedemptionController::getInstance($this->authToken);
     }
 
 
@@ -61,7 +57,7 @@ class InfluenceClient
      */
     public function getWidgets(): WidgetController
     {
-        return WidgetController::getInstance($this->authToken, $this->accountSlug);
+        return WidgetController::getInstance($this->authToken);
     }
 
 
@@ -70,7 +66,7 @@ class InfluenceClient
      */
     public function getWidgetPackages(): WidgetPackageController
     {
-        return WidgetPackageController::getInstance($this->authToken, $this->accountSlug);
+        return WidgetPackageController::getInstance($this->authToken);
     }
 
     /**
@@ -78,6 +74,6 @@ class InfluenceClient
      */
     public function getReports(): ReportController
     {
-        return ReportController::getInstance($this->authToken, $this->accountSlug);
+        return ReportController::getInstance($this->authToken);
     }
 }

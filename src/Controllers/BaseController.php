@@ -4,7 +4,6 @@
 namespace ForOverReferralsLib\Controllers;
 
 use Exception;
-use ForOverReferralsLib\Routes\RedemptionRoute;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -14,22 +13,19 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class BaseController
 {
-
     /**
      * @var string[]
      */
     protected $headers;
 
-    protected $accountSlug;
 
-    public function __construct(string $authToken, string $accountSlug)
+    public function __construct(string $authToken)
     {
         $this->headers = [
             'app-key' => $authToken,
             'Accept' => 'application/json'
         ];
 
-        $this->accountSlug = $accountSlug;
     }
 
     protected function request($method, $url, $data = [])

@@ -18,11 +18,10 @@ class AdvocateController extends BaseController
 
     /**
      * @param string $authToken
-     * @param string $accountSlug
      */
-    public function __construct(string $authToken, string $accountSlug)
+    public function __construct(string $authToken)
     {
-        parent::__construct($authToken, $accountSlug);
+        parent::__construct($authToken);
 
         $this->advocateRoute = new AdvocateRoute();
     }
@@ -30,14 +29,13 @@ class AdvocateController extends BaseController
 
     /**
      * @param string $authToken
-     * @param string $accountSlug
      * @return mixed
      */
-    public static function getInstance(string $authToken, string $accountSlug)
+    public static function getInstance(string $authToken)
     {
         if (null === static::$instance) {
 
-            static::$instance = new static($authToken, $accountSlug);
+            static::$instance = new static($authToken);
         }
 
         return static::$instance;
@@ -62,9 +60,9 @@ class AdvocateController extends BaseController
     }
 
 
-    public function deleteAdvocate($advocateToken)
+    public function deleteAdvocate($accountSlug, $advocateToken)
     {
-        $requestUrl = $this->advocateRoute->advocateDeleteUrl($this->accountSlug, $advocateToken);
+        $requestUrl = $this->advocateRoute->advocateDeleteUrl($accountSlug, $advocateToken);
 
         return $this->request('DELETE', $requestUrl);
     }

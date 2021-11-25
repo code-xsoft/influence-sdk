@@ -11,7 +11,6 @@ class Configuration
      * @var string
      */
     public static $baseUri = 'http://influence-api.xsoft.am/sdk/accounts/';
-    public static $BASEURI = 'http://influence-api.xsoft.am/sdk/accounts/';
 
     /**
      * The content type

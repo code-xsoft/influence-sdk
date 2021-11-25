@@ -14,17 +14,16 @@ class WidgetPackageController extends BaseController
      */
     private $widgetPackageRoute;
 
-
-    public function __construct(string $authToken, string $accountSlug)
+    public function __construct(string $authToken)
     {
-        parent::__construct($authToken, $accountSlug);
+        parent::__construct($authToken);
         $this->widgetPackageRoute = new WidgetPackageRoute();
     }
 
-    public static function getInstance(string $authToken, string $accountSlug)
+    public static function getInstance(string $authToken)
     {
         if (null === static::$instance) {
-            static::$instance = new static($authToken, $accountSlug);
+            static::$instance = new static($authToken);
         }
 
         return static::$instance;
@@ -64,17 +63,17 @@ class WidgetPackageController extends BaseController
     }
 
 
-    public function deleteWidgetPackage(int $widget_packageID)
+    public function deleteWidgetPackage($accountSlug, int $widget_packageID)
     {
-        $requestUrl = $this->widgetPackageRoute->widgetPackageDeleteUrl($this->accountSlug, $widget_packageID);
+        $requestUrl = $this->widgetPackageRoute->widgetPackageDeleteUrl($accountSlug, $widget_packageID);
 
         return $this->request('DELETE', $requestUrl);
     }
 
 
-    public function updateWidgetPackage(int $widget_packageID, array $data)
+    public function updateWidgetPackage($accountSlug, int $widget_packageID, array $data)
     {
-        $requestUrl = $this->widgetPackageRoute->widgetPackageUpdateUrl($this->accountSlug, $widget_packageID);
+        $requestUrl = $this->widgetPackageRoute->widgetPackageUpdateUrl($accountSlug, $widget_packageID);
 
         return $this->request('PATCH', $requestUrl, $data);
     }

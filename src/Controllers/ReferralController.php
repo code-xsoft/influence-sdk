@@ -11,44 +11,44 @@ class ReferralController extends BaseController
 
     private $referralRoute;
 
-    public function __construct(string $authToken, string $accountSlug)
+    public function __construct(string $authToken)
     {
-        parent::__construct($authToken, $accountSlug);
+        parent::__construct($authToken);
         $this->referralRoute = new ReferralRoute();
     }
 
     private static $instance;
 
-    public static function getInstance(string $authToken, string $accountSlug)
+    public static function getInstance(string $authToken)
     {
         if (null === static::$instance) {
-            static::$instance = new static($authToken, $accountSlug);
+            static::$instance = new static($authToken);
         }
 
         return static::$instance;
     }
 
-    public function listReferrals(int $advocate_id, $per_page = null, $current_page = null)
+    public function listReferrals($accountSlug, int $advocate_id, $page = 1, $per_page = 100)
     {
-        $requestUrl = $this->referralRoute->referralListUrl($this->accountSlug, $advocate_id, [
+        $requestUrl = $this->referralRoute->referralListUrl($accountSlug, $advocate_id, [
             'per_page' => $per_page,
-            'current_page' => $current_page
+            'page' => $page
         ]);
 
         return $this->request('GET', $requestUrl);
     }
 
-    public function deleteReferral($advocateId)
+    public function deleteReferral($accountSlug, $advocateId)
     {
-        $requestUrl = $this->referralRoute->referralDeleteUrl($this->accountSlug, $advocateId);
+        $requestUrl = $this->referralRoute->referralDeleteUrl($accountSlug, $advocateId);
 
         return $this->request('DELETE', $requestUrl);
     }
 
 
-    public function updateReferral($data, $referral_id)
+    public function updateReferral($accountSlug, $referral_id, $data)
     {
-        $requestUrl = $this->referralRoute->referralUpdateUrl($this->accountSlug, $referral_id);
+        $requestUrl = $this->referralRoute->referralUpdateUrl($accountSlug, $referral_id);
 
         return $this->request('PATCH', $requestUrl, $data);
     }
@@ -62,10 +62,6 @@ class ReferralController extends BaseController
             'referrer_advocate_token' => $referrer_advocate_token
         ],
             $referralForm->toArray());
-
-//        echo "<pre>";
-//        print_r($data);
-//        die;
 
         return $this->request('POST', $requestUrl, $data);
     }

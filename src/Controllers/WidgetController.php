@@ -17,23 +17,21 @@ class WidgetController extends BaseController
 
     /**
      * @param string $authToken
-     * @param string $accountSlug
      */
-    public function __construct(string $authToken, string $accountSlug)
+    public function __construct(string $authToken)
     {
-        parent::__construct($authToken, $accountSlug);
+        parent::__construct($authToken);
         $this->widgetRoute = new WidgetRoute();
     }
 
     /**
      * @param string $authToken
-     * @param string $accountSlug
      * @return mixed
      */
-    public static function getInstance(string $authToken, string $accountSlug)
+    public static function getInstance(string $authToken)
     {
         if (null === static::$instance) {
-            static::$instance = new static($authToken, $accountSlug);
+            static::$instance = new static($authToken);
         }
 
         return static::$instance;
@@ -46,16 +44,16 @@ class WidgetController extends BaseController
         return $this->request('POST', $requestUrl, $widgetForm->toArray());
     }
 
-    public function deleteWidget($widget_packageID, $widget_id)
+    public function deleteWidget($accountSlug, $widget_packageID, $widget_id)
     {
-        $requestUrl = $this->widgetRoute->widgetDeleteUrl($this->accountSlug, $widget_packageID, $widget_id);
+        $requestUrl = $this->widgetRoute->widgetDeleteUrl($accountSlug, $widget_packageID, $widget_id);
 
         return $this->request('DELETE', $requestUrl);
     }
 
-    public function listWidget($widget_packageID, $per_page = null, $current_page = null)
+    public function listWidget($accountSlug, $widget_packageID, $per_page = null, $current_page = null)
     {
-        $requestUrl = $this->widgetRoute->widgetListUrl($this->accountSlug, $widget_packageID, [
+        $requestUrl = $this->widgetRoute->widgetListUrl($accountSlug, $widget_packageID, [
             'per_page' => $per_page,
             'current_page' => $current_page
         ]);
@@ -63,9 +61,9 @@ class WidgetController extends BaseController
         return $this->request('GET', $requestUrl);
     }
 
-    public function updateWidget($widget_packageID, $widget_id, $data)
+    public function updateWidget($accountSlug, $widget_packageID, $widget_id, $data)
     {
-        $requestUrl = $this->widgetRoute->widgetUpdateUrl($this->accountSlug, $widget_packageID, $widget_id);
+        $requestUrl = $this->widgetRoute->widgetUpdateUrl($accountSlug, $widget_packageID, $widget_id);
 
         return $this->request('PATCH', $requestUrl, $data);
     }

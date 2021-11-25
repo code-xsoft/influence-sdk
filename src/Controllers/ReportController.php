@@ -8,18 +8,18 @@ class ReportController extends BaseController
 {
     private $reportRoute;
 
-    public function __construct(string $authToken, string $accountSlug)
+    public function __construct(string $authToken)
     {
-        parent::__construct($authToken, $accountSlug);
+        parent::__construct($authToken);
         $this->reportRoute = new ReportRoute();
     }
 
     private static $instance;
 
-    public static function getInstance(string $authToken, string $accountSlug)
+    public static function getInstance(string $authToken)
     {
         if (null === static::$instance) {
-            static::$instance = new static($authToken, $accountSlug);
+            static::$instance = new static($authToken);
         }
 
         return static::$instance;
