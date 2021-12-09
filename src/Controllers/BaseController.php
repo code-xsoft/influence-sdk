@@ -22,7 +22,7 @@ class BaseController
     public function __construct(string $authToken)
     {
         $this->headers = [
-            'app-key' => $authToken,
+            'api_key' => $authToken,
             'Accept' => 'application/json'
         ];
 
