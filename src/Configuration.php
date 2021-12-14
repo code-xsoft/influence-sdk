@@ -10,7 +10,7 @@ class Configuration
      * The base Uri for API calls
      * @var string
      */
-    public static $baseUri = 'http://influence-api.xsoft.am/sdk/accounts/';
+    public static $baseUri = 'https://api.coinfluents.com/sdk/accounts/';
 
     /**
      * The content type
